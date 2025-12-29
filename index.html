@@ -1,19 +1,177 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alynd</title>
+    <meta name="description" content="A small beginning. A more aligned way to meet." />
     <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; padding: 48px; max-width: 720px; margin: 0 auto; line-height: 1.6; }
-      h1 { margin: 0 0 12px; font-size: 40px; }
-      p { margin: 0 0 10px; font-size: 18px; }
-      .muted { opacity: 0.7; font-size: 14px; margin-top: 24px; }
+      :root {
+        --bg: #0b0b0c;
+        --card: #111114;
+        --text: #f5f5f5;
+        --muted: #b8b8b8;
+        --line: rgba(255, 255, 255, 0.12);
+        --max: 860px;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+
+      .wrap {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 72px 18px 80px;
+      }
+
+      header {
+        padding-bottom: 26px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 54px;
+        letter-spacing: -0.02em;
+      }
+
+      .tagline {
+        margin: 0;
+        font-size: 18px;
+        color: var(--muted);
+      }
+
+      .card {
+        margin-top: 28px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 16px;
+      }
+
+      .intro {
+        margin: 0;
+        font-size: 18px;
+        color: var(--text);
+      }
+
+      .small {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      h2 {
+        margin: 38px 0 14px;
+        font-size: 18px;
+        letter-spacing: 0.01em;
+        color: var(--text);
+      }
+
+      /* IG grid */
+      .ig-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      @media (min-width: 720px) {
+        .ig-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+      }
+
+      .ig-embed {
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #fff; /* IG embed renders on white */
+      }
+
+      footer {
+        margin-top: 44px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      a { color: inherit; }
     </style>
   </head>
+
   <body>
-    <h1>Alynd</h1>
-    <p>A small beginning. A more aligned way to meet.</p>
-    <p class="muted">More soon.</p>
+    <div class="wrap">
+      <header>
+        <h1>Alynd</h1>
+        <p class="tagline">A small beginning. A more aligned way to meet.</p>
+      </header>
+
+      <section class="card">
+        <p class="intro">
+          Alynd is an early, intentional space for people who are done with shallow dating.
+          We’re building something quieter — slower conversations, clearer intent, better alignment.
+        </p>
+        <p class="small">More soon. For now, follow along below.</p>
+      </section>
+
+      <h2>Updates</h2>
+
+      <!-- Instagram embeds -->
+      <div class="ig-grid" id="igGrid"></div>
+
+      <footer>
+        © <span id="year"></span> Alynd
+      </footer>
+    </div>
+
+    <script>
+      // 1) Replace these with your Instagram post URLs (not profile URL).
+      //    Example format: https://www.instagram.com/p/POST_ID/
+      const instagramPostUrls = [
+        "https://www.instagram.com/p/REPLACE_ME_1/",
+        "https://www.instagram.com/p/REPLACE_ME_2/",
+        "https://www.instagram.com/p/REPLACE_ME_3/",
+        "https://www.instagram.com/p/REPLACE_ME_4/"
+      ];
+
+      const igGrid = document.getElementById("igGrid");
+
+      // Build IG embed blocks
+      instagramPostUrls.forEach((url) => {
+        const outer = document.createElement("div");
+        outer.className = "ig-embed";
+
+        // Instagram embed markup
+        outer.innerHTML = `
+          <blockquote
+            class="instagram-media"
+            data-instgrm-permalink="${url}"
+            data-instgrm-version="14"
+            style="margin:0; width:100%;"
+          ></blockquote>
+        `;
+
+        igGrid.appendChild(outer);
+      });
+
+      // Load Instagram embed script once
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.instagram.com/embed.js";
+      document.body.appendChild(s);
+
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
+
